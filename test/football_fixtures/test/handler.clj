@@ -5,9 +5,9 @@
 
 (deftest test-app
   (testing "main route"
-    (let [response (app (request :get "/"))]
+    (let [response (app (request :get "/fixtures"))]
       (is (= (:status response) 200))
-      (is (= (:body response) "Hello World"))))
+      (is (= (:body response) "{\"hello\":\"world\"}"))))
   
   (testing "not-found route"
     (let [response (app (request :get "/invalid"))]
