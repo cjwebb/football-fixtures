@@ -3,13 +3,15 @@
   (:use ring.util.response)
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
-            [ring.middleware.json :as middleware]))
+            [ring.middleware.json :as middleware]
+            [org.httpkit.client :as http-kit]
+            [football-fixtures.fixtures :as fixtures]))
 
-(defn fixtures [_]
-  {:body {:hello "world"}})
+(defn get-fixtures [_]
+  {:body @fixtures/fixtures-atom})
 
 (defroutes app-routes
-  (GET "/fixtures" [] fixtures)
+  (GET "/fixtures" [] get-fixtures)
   (route/not-found {:body nil}))
 
 (def app
